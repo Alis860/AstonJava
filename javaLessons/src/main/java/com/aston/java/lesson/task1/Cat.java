@@ -3,9 +3,10 @@ package com.aston.java.lesson.task1;
 public class Cat extends Animal {
     private static int catCount;
     private boolean isHungry;
-    private Bowl bowl;
 
-    public Cat() {
+    public Cat(int maxRun, int maxSwim) {
+        super(maxRun, maxSwim);
+        this.maxSwim = 0;
         isHungry = true;
         catCount++;
     }
@@ -18,22 +19,11 @@ public class Cat extends Animal {
         return isHungry;
     }
 
-    public void setBowl(Bowl bowl) {
-        this.bowl = bowl;
-    }
-
-    public void run(int distance) {
-        if (distance > 200) {
-            System.out.println("Мурзик кот, а не лев, и столько метров он пробежать не может");
-        } else
-            System.out.println("Кот Мурзик молодец, он пробежал: " + distance + "м");
-    }
-
     public void swim(int distance) {
         System.out.println("Кот Мурзик не умеет плавать");
     }
 
-    public void eat(int foodAmount) {
+    public void eat(int foodAmount, Bowl bowl) {
         if (bowl.getFoodAmount() < foodAmount) {
             System.out.println("В миске недостаточно еды для Мурзика");
         } else {

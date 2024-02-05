@@ -2,25 +2,36 @@ package com.aston.java.lesson.task1;
 
 public class Animal {
     private static int animalCount;
-    public Animal() {
+    protected int maxRun;
+    protected int maxSwim;
+
+    public Animal(int maxRun, int maxSwim) {
+        this.maxRun = maxRun;
+        this.maxSwim = maxSwim;
         animalCount++;
     }
-    public static int getAnimalCount () {
+
+    public static int getAnimalCount() {
         return animalCount;
     }
-    public static void main(String[] args) {
-        Animal animal = new Animal();
-        animal.run(233);
-        animal.swim(400);
-        System.out.println("Количество животных: " + Animal.getAnimalCount());
-    }
-        public void run ( int distance){
+
+    public void run(int distance) {
+        if (distance > this.maxRun) {
+            System.out.println("Животное не может пробежать" + distance + "м.");
+        } else {
             System.out.println("Животное пробежало " + distance + " м.");
         }
+    }
 
-        public void swim ( int distance){
+
+    public void swim(int distance) {
+        if (distance > maxSwim) {
+            System.out.println("Животное не может проплыть" + distance + "м.");
+        } else {
             System.out.println("Животное проплыло " + distance + " м.");
+
         }
 
     }
+}
 
