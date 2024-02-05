@@ -13,7 +13,7 @@ public class App7 {
                 {"1", "1", "1", "1"},
                 {"1", "1", "1", "1"},
                 {"1", "1", "1", "1"},
-                {"1", "1", "1", "f"}
+                {"1", "1", "1", "1"}
         };
 
         try {
@@ -26,19 +26,18 @@ public class App7 {
 
     public static int sumArray(String[][] array) throws MyArraySizeException, MyArrayDataException {
         int sum = 0;
-
-        if (array.length != 4 || array[0].length != 4) throw new MyArraySizeException("Неверный размер массива!");
+        if (array.length != 4 || array[0].length != 4)
+            throw new MyArraySizeException("Неверный размер массива!");
 
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
                 try {
                     sum += Integer.parseInt(array[i][j]);
                 } catch (NumberFormatException e) {
-                    throw new MyArrayDataException("Неверные данные в ячейке [" + i + "][" + j + "]!", e);
+                    throw new MyArrayDataException("Неверные данные в ячейке [" + (i + 1) + "][" + (j + 1) + "]!", e);
                 }
             }
         }
-
         return sum;
     }
 }
