@@ -5,4 +5,3 @@ public class MyArrayDataException extends Exception {
             super(message, cause);
         }
     }
-
