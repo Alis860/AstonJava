@@ -1,6 +1,7 @@
 package com.aston.java.lesson;
 
 public class App10 {
+    //Даны классы Fruit, Apple extends Fruit, Orange extends Fruit;
     public static void main(String[] args) {
         Box<Apple> appleBox1 = new Box<>();
         appleBox1.addFruit(new Apple());
