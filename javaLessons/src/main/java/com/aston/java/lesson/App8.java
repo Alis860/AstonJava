@@ -2,6 +2,9 @@ package com.aston.java.lesson;
 
 import java.util.*;
 
+//Создать массив с набором слов (10-20 слов, должны встречаться повторяющиеся). Найти и вывести список уникальных слов,
+//из которых состоит массив (дубликаты не считаем). Посчитать, сколько раз встречается каждое слово. (реализовать
+//с использованием коллекций)
 public class App8 {
     public static void main(String[] args) {
         String[] words = {"apple", "banana", "orange", "apple", "lemon", "banana", "kiwi", "melon", "orange", "grape",
@@ -26,7 +29,5 @@ public class App8 {
         for (Map.Entry<String, Integer> entry : wordCountMap.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
-
-
     }
 }
