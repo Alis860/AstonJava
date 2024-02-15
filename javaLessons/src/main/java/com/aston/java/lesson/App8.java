@@ -27,19 +27,6 @@ public class App8 {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
 
-        // Создаем телефонный справочник
-        PhoneBook phoneBook = new PhoneBook();
-        phoneBook.add("Иванов", "122345");
-        phoneBook.add("Сергеев", "988765");
-        phoneBook.add("Сидоров", "562345");
-        phoneBook.add("Иванов", "456512");
-
-
-        System.out.println("\nНомера телефонов по фамилии:");
-        System.out.println("Иванов: " + phoneBook.get("Иванов"));
-        System.out.println("Сидоров: " + phoneBook.get("Сидоров"));
-        System.out.println("Сергеев: " + phoneBook.get("Сергеев"));
-        System.out.println("Васечкин: " + phoneBook.get("Васечкин"));
 
     }
 }
