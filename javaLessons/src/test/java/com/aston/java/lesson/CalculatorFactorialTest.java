@@ -1,8 +1,10 @@
-import com.aston.java.lesson.CalculatorFactorial;
-import org.junit.jupiter.api.Assertions;
+package com.aston.java.lesson;
+
 import org.junit.jupiter.api.Test;
 
 import static com.aston.java.lesson.CalculatorFactorial.calculateFactorial;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CalculatorFactorialTest {
 
@@ -11,13 +13,15 @@ class CalculatorFactorialTest {
         int number = 5;
         long expectedFactorial = 120;
         long actualFactorial = calculateFactorial(number);
-        Assertions.assertEquals(expectedFactorial, actualFactorial);
+
+        assertEquals(expectedFactorial, actualFactorial);
     }
 
     @Test
     void testCalculateFactorialForNegativeNumber() {
         int number = -5;
-        Assertions.assertThrows(IllegalArgumentException.class, () -> calculateFactorial(number));
+
+        assertThrows(IllegalArgumentException.class, () -> calculateFactorial(number));
     }
 
     @Test
@@ -25,6 +29,7 @@ class CalculatorFactorialTest {
         int number = 0;
         long expectedFactorial = 1;
         long actualFactorial = CalculatorFactorial.calculateFactorial(number);
-        Assertions.assertEquals(expectedFactorial, actualFactorial);
+
+        assertEquals(expectedFactorial, actualFactorial);
     }
 }
