@@ -1,36 +1,24 @@
 package com.aston.java.lesson;
 
-import org.junit.jupiter.api.AfterAll;
+
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MTsTest {
-    private static WebDriver driver;
+//        Необходимо написать автотесты для сайта mts.by. Суть тестов заключается в проверке блока «Онлайн пополнение
+//        без комиссии»:
+//        Проверить название указанного блока;
+//        Проверить наличие логотипов платёжных систем;
+//        Заполнить поля и проверить работу кнопки «Продолжить» (проверяем только вариант «Услуги связи», номер для
+//        теста 297777777)
 
-    @BeforeEach
-    public void setup() {
-        System.setProperty("webdriver.chrome.driver",
-                "C:\\Users\\Zub\\Desktop\\chromedriver-win32\\chromedriver-win32\\chromedriver.exe");
-        driver = new ChromeDriver();
-        System.out.println("Test is starting");
-    }
+public class TestOnlineRecharge extends WebDriverSetting {
 
     @Test
     public void testOnlineRechargeBlock() {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("https://www.mts.by/?hash-offset=70&hash-dur=1300#pay-section");
-        WebElement applyCookies = driver.findElement(By.id("cookie-agree"));
-        applyCookies.click();
-
         // Проверяем название указанного блока
         WebElement blockTitle = driver.findElement(By.xpath("//div[@class='pay__wrapper']//h2"));
         String expectedTitle = "Онлайн пополнение\nбез комиссии";
@@ -68,20 +56,10 @@ public class MTsTest {
         inputEmail.sendKeys("kosmonova@yandex.ru");
         WebElement continueButton = driver.findElement(By.xpath("//button[contains(text(),'Продолжить')]"));
         continueButton.click();
-
-        // Найти ссылку "Подробнее о сервисе"
-        WebElement link = driver.findElement(By.linkText("Подробнее о сервисе"));
-        link.click();
-        // Проверить, что URL соответствует ожидаемому
-        String expectedUrl = "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
-        String actualUrl = driver.getCurrentUrl();
-        Assertions.assertEquals(expectedUrl, actualUrl, "URL не соответствует ожидаемому");
-    }
-
-    @AfterAll
-    public static void tearDown() {
-        // Закрыть браузер после окончания тестов
-        System.out.println("Test is closing");
-        driver.quit();
+        try {
+            Thread.sleep(5000); // Задержка в 5 секунд
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
