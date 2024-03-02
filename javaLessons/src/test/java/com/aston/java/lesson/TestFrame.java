@@ -65,15 +65,10 @@ public class TestFrame extends WebDriverSettings {
         WebElement iframeIconBelkart = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/belkart-system.svg']"));
         wait.until(ExpectedConditions.visibilityOf(iframeIconBelkart));
 
-        WebElement iframeIconMir = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/mir-system.svg']"))));
-
-        iframeIconMir = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/mir-system.svg']"));
-        wait.until(ExpectedConditions.visibilityOf(iframeIconMir));
-
+        WebElement iframeIconMir = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/mir-system-ru.svg']"))));
 
         WebElement iframeButton = driver.findElement(By.xpath("//div[@class='card-page__card']//button"));
         wait.until(ExpectedConditions.visibilityOf(iframeButton));
-
 
         List<String> placeholders = new ArrayList<>();
         for (WebElement ele : iframeAppCardInputPlaceholders) {
@@ -81,10 +76,9 @@ public class TestFrame extends WebDriverSettings {
             placeholders.add(ele.getAttribute("textContent"));
         }
 
-
-        short price = 0;
+        short price = 30;
         Assertions.assertEquals(price + ".00", iframeHeaderPrice.getAttribute("textContent").replace("BYN", "").trim());
-        short number = 0;
+        String number = String.valueOf(297777777);
         Assertions.assertEquals(number, iframeHeaderNumber.getAttribute("textContent").replace(" Оплата: Услуги связи\nНомер:375", "").trim());
         Assertions.assertEquals(List.of("Номер карты", "Срок действия", "CVC", "Имя держателя (как на карте)"), placeholders);
         Assertions.assertTrue(iframeIconMasterCard.isDisplayed());
@@ -96,9 +90,3 @@ public class TestFrame extends WebDriverSettings {
         Assertions.assertTrue(wait.until(ExpectedConditions.visibilityOf(iframeIconMaestro)).isDisplayed());
     }
 }
-
-
-
-
-
-
