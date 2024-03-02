@@ -1,5 +1,6 @@
 package com.aston.java.lesson;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -46,97 +47,58 @@ public class TestFrame extends WebDriverSettings {
         WebElement continueButton = driver.findElement(By.xpath("//button[contains(text(), 'Продолжить')]"));
         continueButton.click();
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@class='bepaid-iframe']")));
+
+        WebElement iframeHeaderPrice = driver.findElement(By.xpath("//div[@class='header__payment-amount']"));
+
+        WebElement iframeHeaderNumber = driver.findElement(By.xpath("//p[@class='header__payment-info']"));
+
+        List<WebElement> iframeAppCardInputPlaceholders = driver.findElements(By.xpath("//app-card-input//input//following-sibling::label"));
+
+        WebElement iframeIconMasterCard = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/mastercard-system.svg']"));
+        wait.until(ExpectedConditions.visibilityOf(iframeIconMasterCard));
+
+        WebElement iframeIconVisa = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/visa-system.svg']"));
+        wait.until(ExpectedConditions.visibilityOf(iframeIconVisa));
+
+        WebElement iframeIconBelkart = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/belkart-system.svg']"));
+        wait.until(ExpectedConditions.visibilityOf(iframeIconBelkart));
+
+        WebElement iframeIconMir = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/mir-system.svg']"))));
+
+        iframeIconMir = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/mir-system.svg']"));
+        wait.until(ExpectedConditions.visibilityOf(iframeIconMir));
 
 
+        WebElement iframeButton = driver.findElement(By.xpath("//div[@class='card-page__card']//button"));
+        wait.until(ExpectedConditions.visibilityOf(iframeButton));
 
 
+        List<String> placeholders = new ArrayList<>();
+        for (WebElement ele : iframeAppCardInputPlaceholders) {
+            wait.until(ExpectedConditions.visibilityOf(ele));
+            placeholders.add(ele.getAttribute("textContent"));
+        }
 
 
+        short price = 0;
+        Assertions.assertEquals(price + ".00", iframeHeaderPrice.getAttribute("textContent").replace("BYN", "").trim());
+        short number = 0;
+        Assertions.assertEquals(number, iframeHeaderNumber.getAttribute("textContent").replace(" Оплата: Услуги связи\nНомер:375", "").trim());
+        Assertions.assertEquals(List.of("Номер карты", "Срок действия", "CVC", "Имя держателя (как на карте)"), placeholders);
+        Assertions.assertTrue(iframeIconMasterCard.isDisplayed());
+        Assertions.assertTrue(iframeIconVisa.isDisplayed());
+        Assertions.assertTrue(iframeIconBelkart.isDisplayed());
+        Assertions.assertTrue(wait.until(ExpectedConditions.visibilityOf(iframeIconMir)).isDisplayed());
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@app-payment-container/app-header]")));
-//        wait = new WebDriverWait(driver, Duration.ofSeconds(60));
-//            By xpathSelector = By.xpath("//app-payment-container/app-header//div//span[1]");
-//            wait.until(ExpectedConditions.presenceOfElementLocated(xpathSelector));
-//            WebElement element = driver.findElement(xpathSelector);
-//        WebElement frame = null;
-//        frame.sendKeys("Тестовые данные" + inputSum);
-
-
-//        List<WebElement> frames = driver.findElements(By.tagName("iframe"));
-//
-//// Переключение на нужный фрейм (в данном случае, первый найденный фрейм)
-//        if (!frames.isEmpty()) {
-//            driver.switchTo().frame(frames.get(0)); // Переключение на фрейм с помощью индекса
-//            WebElement frameElement = driver.findElement(By.xpath("//app-payment-container/app-header//div//span[1]")); // Пример поиска элемента внутри фрейма
-//            frameElement.sendKeys("Тестовые данные"); // Пример взаимодействия с элементом внутри фрейма
-//
-//        } else {
-//            System.out.println("Фреймы не найдены");
-//        }
-
-
-
-//        List<String> windowHandles = new ArrayList<>(driver.getWindowHandles());
-//
-//        int frameIndex = -1;
-//        for (int i = 0; i < windowHandles.size(); i++) {
-//            driver.switchTo().window(windowHandles.get(i));
-//            if (driver.findElements(By.tagName("iframe")).size() > 0) {
-//                frameIndex = i;
-//                break;
-//            }
-//        }
-//
-//        if (frameIndex != -1) {
-//            List<WebElement> frames = driver.findElements(By.tagName("iframe"));
-//            driver.switchTo().frame(frames.get(frameIndex)); // Переключаемся на фрейм с помощью элемента <iframe>
-//            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
-//            wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameIndex));
-//            // Проверяем, что мы переключены на фрейм
-//            WebElement frame = driver.findElement(By.xpath("//app-payment-container"));
-//            wait = new WebDriverWait(driver, Duration.ofSeconds(60));
-//            By xpathSelector = By.xpath("//app-payment-container/app-header//div//span[1]");
-//            wait.until(ExpectedConditions.presenceOfElementLocated(xpathSelector));
-//            WebElement element = driver.findElement(xpathSelector);
-//            frame.sendKeys("Тестовые данные" + inputSum);
-//        } else {
-//            System.out.println("Фрейм не найден");
-//        }
-
-
-
-
-        //app-payment-container/app-header//div//span[1]
-//        driver.switchTo().frame(0);
-//        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//app-payment-container/app-header//div/span")));
-//
-//        WebElement frame = driver.findElement(By.xpath("//app-payment-container/app-header//div/span"));
-//        frame.sendKeys("Тестовые данные" + inputSum);
-
-
-
-
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[contains(text(), 'BYN')]"))); // Используйте правильный XPath для поиска элемента во фрейме
-//        WebElement element = frame.findElement(By.xpath("//span[contains(text(), 'BYN')]")); // Ищите элемент в найденном фрейме
-//        element.sendKeys("Тестовые данные" + inputSum);
-
-//        WebElement cardNumberFiled = driver.findElement(By.xpath("//label[text()='Номер карты']"));
-//        String cardNumber = cardNumberFiled.getAttribute("placeholder");
-//        System.out.println("Надпись в незаполненном поле 'Номер карты' нового окна: " + cardNumberFiled);
-//
-//        WebElement validityFiled = driver.findElement(By.xpath("//input[@type='tel']"));
-//        String validity = validityFiled.getAttribute("placeholder");
-//        System.out.println("Надпись в незаполненном поле 'Срок действия' нового окна: " + validity);
-//
-//        WebElement cvcFiled = driver.findElement(By.xpath("//input[@name='verification_value']"));
-//        String cvc = cvcFiled.getAttribute("placeholder");
-//        System.out.println("Надпись в незаполненном поле 'CVC' нового окна: " + cvc);
-//
-//        WebElement nameHolderFiled = driver.findElement(By.xpath("//input[@autocomplete='cc-name']"));
-//        String nameHolder = nameHolderFiled.getAttribute("placeholder");
-//        System.out.println("Надпись в незаполненном поле 'Имя держателя (как на карте)' нового окна: " + nameHolder);
+        WebElement iframeIconMaestro = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/maestro-system.svg']"));
+        Assertions.assertTrue(wait.until(ExpectedConditions.visibilityOf(iframeIconMaestro)).isDisplayed());
     }
 }
-//div[@class='app-wrapper__content']
+
+
+
+
+
+
