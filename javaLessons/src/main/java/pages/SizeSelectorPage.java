@@ -9,9 +9,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static constans.Constant.TimeoutVariable.IMPLICIT_WAIT;
+
 public class SizeSelectorPage {
     public static void selectSize(WebDriver driver, By sizePopup, By sizeButton) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(IMPLICIT_WAIT));
 
         //выбирает первый доступный размер
         sizePopup = By.xpath("//div[@class='popup popup-list-of-sizes shown slideUp']");

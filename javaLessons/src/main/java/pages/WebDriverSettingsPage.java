@@ -7,6 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
 
+import static constans.Constant.TimeoutVariable.IMPLICIT_WAIT;
+
 public class WebDriverSettingsPage {
     public static WebDriver driver;
 
@@ -18,7 +20,7 @@ public class WebDriverSettingsPage {
         System.out.println("Test is starting");
 
         driver.get("https://www.wildberries.ru/");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICIT_WAIT));
     }
 
     @AfterAll
