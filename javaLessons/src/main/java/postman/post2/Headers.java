@@ -1,4 +1,4 @@
-package postman.get;
+package postman.post2;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,10 +21,26 @@ public class Headers {
     @JsonProperty("x-amzn-trace-id")
     private String xAmznTraceId;
 
+    @JsonProperty("content-length")
+    private String contentLength;
+
     @JsonProperty("user-agent")
     private String userAgent;
+
     private String accept;
 
     @JsonProperty("postman-token")
     private String postmanToken;
+
+    @JsonProperty("accept-encoding")
+    private String acceptEncoding;
+
+    @JsonProperty("content-type")
+    private String contentType;
+
+    private String cookie;
 }
+
+
+
+

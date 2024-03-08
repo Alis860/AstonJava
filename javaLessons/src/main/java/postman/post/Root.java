@@ -1,14 +1,14 @@
 package postman.post;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Map;
 
-@Data
+@AllArgsConstructor
+@Getter
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Root {
 
    private Map<String, Object> args;
@@ -19,8 +19,9 @@ public class Root {
    private Object json;
    private String url;
 
-   @lombok.Data
-   static class Data{
+   @Getter
+   @Setter
+   public static class Data{
       private String test;
    }
 }

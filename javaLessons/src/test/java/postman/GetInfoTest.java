@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GetInfoTest {
+public class GetInfoTest {    //проходит не в 100% случаев
     private static RequestSpecification specification;
 
     @BeforeAll
