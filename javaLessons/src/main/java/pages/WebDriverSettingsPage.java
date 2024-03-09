@@ -14,8 +14,8 @@ public class WebDriverSettingsPage {
 
     @BeforeAll
     public static void setup() {
-        System.setProperty("webdriver.chrome.driver",
-                "C:\\Users\\Zub\\Desktop\\chromedriver-win32\\chromedriver-win32\\chromedriver.exe");
+        String driverPath = "drivers/chromedriver.exe";
+        System.setProperty("webdriver.chrome.driver", driverPath);
         driver = new ChromeDriver();
         System.out.println("Test is starting");
 
