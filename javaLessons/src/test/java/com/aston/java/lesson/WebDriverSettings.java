@@ -14,12 +14,11 @@ public class WebDriverSettings {
 
     @BeforeAll
     public static void setup() {
-        System.setProperty("webdriver.chrome.driver",
-                "C:\\Users\\Zub\\Desktop\\chromedriver-win32\\chromedriver-win32\\chromedriver.exe");
+        String driverPath = "drivers/chromedriver.exe";
+        System.setProperty("webdriver.chrome.driver", driverPath);
         driver = new ChromeDriver();
         System.out.println("Test is starting");
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://www.mts.by/?hash-offset=70&hash-dur=1300#pay-section");
         WebElement applyCookies = driver.findElement(By.id("cookie-agree"));
         applyCookies.click();
