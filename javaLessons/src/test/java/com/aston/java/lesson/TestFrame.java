@@ -1,5 +1,6 @@
 package com.aston.java.lesson;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -8,6 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestFrame extends WebDriverSettings {
 
@@ -45,29 +48,45 @@ public class TestFrame extends WebDriverSettings {
         continueButton.click();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        String[] windowHandles = driver.getWindowHandles().toArray(new String[0]);
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[@class='bepaid-iframe']")));
 
-        driver.switchTo().window(windowHandles[0]);
-        By xpathSelector = By.xpath("(//app-payment-container//span)[1]");
-        wait.until(ExpectedConditions.presenceOfElementLocated(xpathSelector));
-        WebElement element = driver.findElement(xpathSelector);
-        element.sendKeys("Тестовые данные" + inputSum);
+        WebElement iframeHeaderPrice = driver.findElement(By.xpath("//div[@class='header__payment-amount']"));
 
-        WebElement cardNumberFiled = driver.findElement(By.xpath("//label[text()='Номер карты']"));
-        String cardNumber = cardNumberFiled.getAttribute("placeholder");
-        System.out.println("Надпись в незаполненном поле 'Номер карты' нового окна: " + cardNumberFiled);
+        WebElement iframeHeaderNumber = driver.findElement(By.xpath("//p[@class='header__payment-info']"));
 
-        WebElement validityFiled = driver.findElement(By.xpath("//input[@type='tel']"));
-        String validity = validityFiled.getAttribute("placeholder");
-        System.out.println("Надпись в незаполненном поле 'Срок действия' нового окна: " + validity);
+        List<WebElement> iframeAppCardInputPlaceholders = driver.findElements(By.xpath("//app-card-input//input//following-sibling::label"));
 
-        WebElement cvcFiled = driver.findElement(By.xpath("//input[@name='verification_value']"));
-        String cvc = cvcFiled.getAttribute("placeholder");
-        System.out.println("Надпись в незаполненном поле 'CVC' нового окна: " + cvc);
+        WebElement iframeIconMasterCard = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/mastercard-system.svg']"));
+        wait.until(ExpectedConditions.visibilityOf(iframeIconMasterCard));
 
-        WebElement nameHolderFiled = driver.findElement(By.xpath("//input[@autocomplete='cc-name']"));
-        String nameHolder = nameHolderFiled.getAttribute("placeholder");
-        System.out.println("Надпись в незаполненном поле 'Имя держателя (как на карте)' нового окна: " + nameHolder);
+        WebElement iframeIconVisa = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/visa-system.svg']"));
+        wait.until(ExpectedConditions.visibilityOf(iframeIconVisa));
+
+        WebElement iframeIconBelkart = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/belkart-system.svg']"));
+        wait.until(ExpectedConditions.visibilityOf(iframeIconBelkart));
+
+        WebElement iframeIconMir = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/mir-system-ru.svg']"))));
+
+        WebElement iframeButton = driver.findElement(By.xpath("//div[@class='card-page__card']//button"));
+        wait.until(ExpectedConditions.visibilityOf(iframeButton));
+
+        List<String> placeholders = new ArrayList<>();
+        for (WebElement ele : iframeAppCardInputPlaceholders) {
+            wait.until(ExpectedConditions.visibilityOf(ele));
+            placeholders.add(ele.getAttribute("textContent"));
+        }
+
+        short price = 30;
+        Assertions.assertEquals(price + ".00", iframeHeaderPrice.getAttribute("textContent").replace("BYN", "").trim());
+        String number = String.valueOf(297777777);
+        Assertions.assertEquals(number, iframeHeaderNumber.getAttribute("textContent").replace(" Оплата: Услуги связи\nНомер:375", "").trim());
+        Assertions.assertEquals(List.of("Номер карты", "Срок действия", "CVC", "Имя держателя (как на карте)"), placeholders);
+        Assertions.assertTrue(iframeIconMasterCard.isDisplayed());
+        Assertions.assertTrue(iframeIconVisa.isDisplayed());
+        Assertions.assertTrue(iframeIconBelkart.isDisplayed());
+        Assertions.assertTrue(wait.until(ExpectedConditions.visibilityOf(iframeIconMir)).isDisplayed());
+
+        WebElement iframeIconMaestro = driver.findElement(By.xpath("//img[@src='assets/images/payment-icons/card-types/maestro-system.svg']"));
+        Assertions.assertTrue(wait.until(ExpectedConditions.visibilityOf(iframeIconMaestro)).isDisplayed());
     }
 }
-//div[@class='app-wrapper__content']
