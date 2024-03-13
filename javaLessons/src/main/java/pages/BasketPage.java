@@ -10,18 +10,18 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static config.WebDriverSettings.driver;
 import static constans.Constant.TimeoutVariable.IMPLICIT_WAIT;
 
 public class BasketPage {
-    private WebDriver driver;
 
-    public static void checkBasket(WebDriver driver) {
+    By productNameSelector = By.xpath("//div[@class='list-item__good-info good-info']");
+    By productQuantitySelector = By.xpath("//input[@type='number']");
+    By productPriceSelector = By.xpath("//div[@class='list-item__price-new wallet']");
+    By totalPriceSelector = By.xpath("//span[@class='b-right']");
 
-        By productNameSelector = By.xpath("//div[@class='list-item__good-info good-info']");
-        By productQuantitySelector = By.xpath("//input[@type='number']");
-        By productPriceSelector = By.xpath("//div[@class='list-item__price-new wallet']");
 
-        By totalPriceSelector = By.xpath("//span[@class='b-right']");
+    public void checkBasket() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(IMPLICIT_WAIT));
 
         List<WebElement> productNames = driver.findElements(productNameSelector);

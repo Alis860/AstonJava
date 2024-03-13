@@ -9,15 +9,20 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static config.WebDriverSettings.driver;
 import static constans.Constant.TimeoutVariable.IMPLICIT_WAIT;
 
 public class SizeSelectorPage {
-    public static void selectSize(WebDriver driver, By sizePopup, By sizeButton) {
+
+    By sizePopup = By.xpath("//div[@class='popup popup-list-of-sizes shown slideUp']");
+    By sizeButton = By.xpath(
+        "//div[@class='popup popup-list-of-sizes shown slideUp']//div//ul/li[1]");
+
+
+    public void selectSize() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(IMPLICIT_WAIT));
 
         //выбирает первый доступный размер
-        sizePopup = By.xpath("//div[@class='popup popup-list-of-sizes shown slideUp']");
-        sizeButton = By.xpath("//div[@class='popup popup-list-of-sizes shown slideUp']//div//ul/li[1]");
 
         try {
             // Ожидание появления окна выбора размера

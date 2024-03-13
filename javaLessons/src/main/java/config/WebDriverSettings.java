@@ -1,4 +1,4 @@
-package pages;
+package config;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,7 +9,7 @@ import java.time.Duration;
 
 import static constans.Constant.TimeoutVariable.IMPLICIT_WAIT;
 
-public class WebDriverSettingsPage {
+public class WebDriverSettings {
     public static WebDriver driver;
 
     @BeforeAll
