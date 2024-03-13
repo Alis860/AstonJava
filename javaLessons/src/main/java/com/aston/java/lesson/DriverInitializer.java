@@ -24,17 +24,16 @@ public class DriverInitializer {
         capabilities.setCapability("automationName", "Appium");
         capabilities.setCapability("appPackage", "com.google.android.calculator");
         capabilities.setCapability("appActivity", "com.android.calculator2.Calculator");
-        capabilities.setCapability("app", "resources/app/com.google.android.calculator_8.4.1_84100198.apk");
+        //capabilities.setCapability("app", "resources/app/com.google.android.calculator_8.4.1_84100198.apk");
         try {
             driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
 
-    public static void quitDriver() {
-        driver.quit();
+        public static void quitDriver () {
+            driver.quit();
+        }
     }
-
-}

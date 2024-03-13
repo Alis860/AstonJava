@@ -1,3 +1,5 @@
+package com.aston.java.lesson;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
@@ -5,7 +7,7 @@ import static com.aston.java.lesson.DriverInitializer.driver;
 import static com.aston.java.lesson.DriverInitializer.initDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CalculatorTest {
+public class CalculationTest {
     @Test
     public void testAddition()  {
         initDriver();
@@ -19,5 +21,4 @@ public class CalculatorTest {
         String expectedResult = "10";
         assertEquals(expectedResult, actualResult, "Результат неверный");
     }
-
 }
